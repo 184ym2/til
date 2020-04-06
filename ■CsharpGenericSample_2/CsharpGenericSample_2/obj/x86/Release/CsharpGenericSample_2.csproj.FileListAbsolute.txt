@@ -1,0 +1,5 @@
+\\192.168.0.250\d\個人フォルダ\いわお\CsharpGenericSample_2\CsharpGenericSample_2\bin\Release\CsharpGenericSample_2.exe
+\\192.168.0.250\d\個人フォルダ\いわお\CsharpGenericSample_2\CsharpGenericSample_2\bin\Release\CsharpGenericSample_2.pdb
+\\192.168.0.250\d\個人フォルダ\いわお\CsharpGenericSample_2\CsharpGenericSample_2\obj\x86\Release\CsharpGenericSample_2.exe
+\\192.168.0.250\d\個人フォルダ\いわお\CsharpGenericSample_2\CsharpGenericSample_2\obj\x86\Release\CsharpGenericSample_2.pdb
+\\192.168.0.250\d\個人フォルダ\いわお\CsharpGenericSample_2\CsharpGenericSample_2\obj\x86\Release\CsharpGenericSample_2.csprojResolveAssemblyReference.cache

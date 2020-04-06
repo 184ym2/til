@@ -1,0 +1,4 @@
+\\192.168.0.250\d\個人フォルダ\いわお\CsharpGenericSample_1\CsharpGenericSample_1\bin\Release\CsharpGenericSample_1.exe
+\\192.168.0.250\d\個人フォルダ\いわお\CsharpGenericSample_1\CsharpGenericSample_1\bin\Release\CsharpGenericSample_1.pdb
+\\192.168.0.250\d\個人フォルダ\いわお\CsharpGenericSample_1\CsharpGenericSample_1\obj\x86\Release\CsharpGenericSample_1.exe
+\\192.168.0.250\d\個人フォルダ\いわお\CsharpGenericSample_1\CsharpGenericSample_1\obj\x86\Release\CsharpGenericSample_1.pdb
