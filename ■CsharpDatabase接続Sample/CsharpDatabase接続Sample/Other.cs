@@ -7,24 +7,29 @@ using System.Data.SqlClient;
 
 namespace CsharpDatabase接続Sample
 {
-    internal class Other
+    class Other
     {
         //別クラスからメインフォームのコントロールを操作 フォームを操作するためには、そのフォームのインスタンス（アドレス）があれば操作可能
 
-        //コンストラクタでは、☆引数として渡されたForm1型の変数(Form1Obj)を自分（別クラス）の★メンバ変数(form1Obj)に格納している
-
-        //★
-        public Form1 Form1Obj;//Form1を示すメンバ変数(フィールド)
-        //public int I;　←と↑は同じ動作
-
-        //☆
         //Q. other.csがnewされたときに、このコンストラクタがMainFormで呼び出され、引数はthis(Form1の先頭アドレス)を持つ → form1ObjはForm1の先頭アドレスを持っている
         //A. 参照型は代入だけでなく、メソッドに引数としてデータを渡した際にもコピー処理が行われるから
+
+        /// <summary>
+        /// ★Form1を示すメンバ変数(フィールド)
+        /// </summary>
+        public Form1 Form1Obj;
+
+        //public int I;　←と↑は同じ動作
         
+        /// <summary>
+        /// コンストラクタでは、引数として渡された Form1型の変数 form1Obj を自分(Other.cs)の★メンバ変数(フィールド) Form1Obj に格納している
+        /// </summary>
+        /// <param name="form1Obj"></param>
         public Other(Form1 form1Obj /*, int i)*/ )
         {
             //form1ObjはForm1の先頭アドレスを持っており、それを自分のメンバ変数(Form1Obj)に格納する
             Form1Obj = form1Obj;
+
             //I = i;　←と↑は同じ動作
         }
 
@@ -42,7 +47,7 @@ namespace CsharpDatabase接続Sample
                     try
                     {
                         //SqlCommand クラス：SQL Server データベースに対して実行する Transact-SQL ステートメントまたはストアド プロシージャを表します　継承不可
-                        commnd.CommandText = @" select count(*) from m_tokui ";//逐語的文字列リテラル：エスケープシーケンス(/n)などを処理しない
+                        commnd.CommandText = @" SELECT count(*) FROM Person.Person ";//逐語的文字列リテラル：エスケープシーケンス(/n)などを処理しない
 
                         var rcount = (int) commnd.ExecuteScalar();
                         Form1Obj.textBox1.Clear();
@@ -50,6 +55,7 @@ namespace CsharpDatabase接続Sample
                     }
                     catch (Exception　exception)
                     {
+                        
                         Form1Obj.label1.Text = exception.Message;
                         throw;
                     }

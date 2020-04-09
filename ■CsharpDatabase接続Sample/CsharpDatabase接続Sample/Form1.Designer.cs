@@ -40,6 +40,7 @@
             this.uiパネル = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.uiIPアドレス手入力 = new System.Windows.Forms.CheckBox();
+            this.uitestlabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.uiパネル.SuspendLayout();
             this.SuspendLayout();
@@ -115,7 +116,7 @@
             this.uiIP.Name = "uiIP";
             this.uiIP.Size = new System.Drawing.Size(147, 20);
             this.uiIP.TabIndex = 7;
-            this.uiIP.Text = "(local)";
+            this.uiIP.Text = ".\\SQLEXPRESS";
             // 
             // uiスキーマ名
             // 
@@ -123,7 +124,7 @@
             this.uiスキーマ名.Name = "uiスキーマ名";
             this.uiスキーマ名.Size = new System.Drawing.Size(147, 20);
             this.uiスキーマ名.TabIndex = 8;
-            this.uiスキーマ名.Text = "URHONBU";
+            this.uiスキーマ名.Text = "AdventureWorks2017";
             // 
             // uiパネル
             // 
@@ -160,11 +161,21 @@
             this.uiIPアドレス手入力.UseVisualStyleBackColor = true;
             this.uiIPアドレス手入力.CheckedChanged += new System.EventHandler(this.uiIPアドレス手入力_CheckedChanged);
             // 
+            // uitestlabel
+            // 
+            this.uitestlabel.AutoSize = true;
+            this.uitestlabel.Location = new System.Drawing.Point(271, 54);
+            this.uitestlabel.Name = "uitestlabel";
+            this.uitestlabel.Size = new System.Drawing.Size(43, 13);
+            this.uitestlabel.TabIndex = 12;
+            this.uitestlabel.Text = "label3";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(443, 538);
+            this.Controls.Add(this.uitestlabel);
             this.Controls.Add(this.uiIPアドレス手入力);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.uiパネル);
@@ -198,6 +209,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox uiIPアドレス手入力;
         public System.Windows.Forms.Panel uiパネル;
+        private System.Windows.Forms.Label uitestlabel;
     }
 }
 
