@@ -19,8 +19,8 @@ namespace CsharpKeywordSample_1
             //var etcSample = new EtcSample();
             //etcSample.代入検証サンプル();
 
-            //var コレクションクラスの比較Sample = new コレクションクラスの比較Sample();
-            //コレクションクラスの比較Sample.各コレクションを比較する();
+            var コレクションクラスの比較Sample = new コレクションクラスの比較Sample();
+            コレクションクラスの比較Sample.各コレクションを比較する();
 
             //var attributeSample = new AttributeSample();
             //attributeSample.Attributeメソッド();
