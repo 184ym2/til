@@ -1,6 +1,0 @@
-\\192.168.0.250\d\個人フォルダ\いわお\■CsharpEventSample_1\CsharpEventSample_1\bin\Debug\CsharpEventSample_1.exe
-\\192.168.0.250\d\個人フォルダ\いわお\■CsharpEventSample_1\CsharpEventSample_1\bin\Debug\CsharpEventSample_1.pdb
-\\192.168.0.250\d\個人フォルダ\いわお\■CsharpEventSample_1\CsharpEventSample_1\obj\x86\Debug\CsharpEventSample_1.exe
-\\192.168.0.250\d\個人フォルダ\いわお\■CsharpEventSample_1\CsharpEventSample_1\obj\x86\Debug\CsharpEventSample_1.pdb
-\\192.168.0.250\d\個人フォルダ\いわお\■Local_til\■CsharpEventSample_1\CsharpEventSample_1\obj\x86\Debug\CsharpEventSample_1.exe
-\\192.168.0.250\d\個人フォルダ\いわお\■Local_til\■CsharpEventSample_1\CsharpEventSample_1\obj\x86\Debug\CsharpEventSample_1.pdb

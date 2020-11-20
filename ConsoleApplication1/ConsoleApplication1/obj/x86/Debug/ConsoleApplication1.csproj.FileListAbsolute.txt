@@ -1,0 +1,4 @@
+\\192.168.0.250\d\個人フォルダ\いわお\■Local_til\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+\\192.168.0.250\d\個人フォルダ\いわお\■Local_til\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+\\192.168.0.250\d\個人フォルダ\いわお\■Local_til\ConsoleApplication1\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.exe
+\\192.168.0.250\d\個人フォルダ\いわお\■Local_til\ConsoleApplication1\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.pdb

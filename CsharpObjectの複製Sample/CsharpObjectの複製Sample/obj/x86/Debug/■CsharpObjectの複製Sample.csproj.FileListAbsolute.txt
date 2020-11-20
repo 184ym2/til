@@ -1,0 +1,4 @@
+\\192.168.0.250\d\個人フォルダ\いわお\■Local_til\■CsharpObjectの複製Sample\■CsharpObjectの複製Sample\bin\Debug\CsharpObjectの複製Sample.exe
+\\192.168.0.250\d\個人フォルダ\いわお\■Local_til\■CsharpObjectの複製Sample\■CsharpObjectの複製Sample\bin\Debug\CsharpObjectの複製Sample.pdb
+\\192.168.0.250\d\個人フォルダ\いわお\■Local_til\■CsharpObjectの複製Sample\■CsharpObjectの複製Sample\obj\x86\Debug\CsharpObjectの複製Sample.exe
+\\192.168.0.250\d\個人フォルダ\いわお\■Local_til\■CsharpObjectの複製Sample\■CsharpObjectの複製Sample\obj\x86\Debug\CsharpObjectの複製Sample.pdb
