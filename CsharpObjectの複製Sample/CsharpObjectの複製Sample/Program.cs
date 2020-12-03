@@ -9,31 +9,58 @@ namespace CsharpObjectの複製Sample
     {
         private static void Main(string[] args)
         {
+            Action shallowSimple = () =>
+                                       {
+                                           var shallowsimple = new ShallowCopy_Simple();
+                                           shallowsimple.simpleCopy();
+                                       };
 
+            Action shallowCopySubstitution = () =>
+                                                 {
+                                                     var shallowcopy = new ShallowCopy_Substitution();
+                                                     shallowcopy.stractCopy_Substitution();
+                                                     shallowcopy.classCopy_Substitution();
+                                                     shallowcopy.stractCopy_Substitution2();
+                                                     shallowcopy.classCopy_Substitution2();
+                                                 };
 
+            Action shallowCopyConstructor = () =>
+                                                {
+                                                    var shallowcopy = new ShallowCopy_Constructor();
+                                                    shallowcopy.stractCopy_Constructor();
+                                                    shallowcopy.classCopy_Constructor();
+                                                    shallowcopy.stractCopy_Constructor2();
+                                                    shallowcopy.classCopy_Constructor2();
+                                                };
 
-          
+            Action shallowCopyMemberwiseClone = () =>
+                                                    {
+                                                        var shallowcopy = new ShallowCopy_MemberwiseClone();
+                                                        shallowcopy.stractCopy_MemberwiseClone();
+                                                        shallowcopy.classCopy_MemberwiseClone();
+                                                        shallowcopy.stractCopy_MemberwiseClone2();
+                                                        shallowcopy.classCopy_MemberwiseClone2();
+                                                    };
 
-            var shallowSimple = new ShallowCopy_Simple();
-            shallowSimple.simpleCopy();
+            Action deepCopy = () =>
+                                  {
+                                      var deepcopy = new DeepCopy();
+                                      deepcopy.stractCopy();
+                                      deepcopy.classCopy();
+                                  };
 
-            var shallowCopy = new ShallowCopy();
-            shallowCopy.stractCopy();
-            shallowCopy.classCopy();
-            shallowCopy.stractCopy2();
-            shallowCopy.classCopy2();
-            shallowCopy.stractCopy3();
-            shallowCopy.classCopy3();
+            Action 値渡しと参照渡し = () =>
+                                  {
+                                      var refout = new 値渡しと参照渡し();
+                                      refout.値型();
+                                      refout.参照型();
+                                  };
 
-            var deepcopy = new DeepCopy();
-            deepcopy.stractCopy();
-            deepcopy.classCopy();
+            shallowCopySubstitution();
+            shallowCopyConstructor();
+            shallowCopyMemberwiseClone();
 
-            var 値渡しと参照渡し = new 値渡しと参照渡し();
-            値渡しと参照渡し.値型();
-
-            
-
+            値渡しと参照渡し();
         }
     }
 }

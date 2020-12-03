@@ -21,36 +21,37 @@ namespace CsharpObjectの複製Sample
                            {
                                Id = 10,
                                Name = "AAA",
-                               IdInts = new[]
-                                        {
-                                            1,
-                                            2,
-                                            3
-                                        },
-                               NameStrings = new[]
-                                             {
-                                                 "A",
-                                                 "B",
-                                                 "C"
-                                             }
+                               Ids = new[]
+                                     {
+                                         1,
+                                         2,
+                                         3
+                                     },
+                               Names = new[]
+                                       {
+                                           "A",
+                                           "B",
+                                           "C"
+                                       }
                            };
 
             #endregion
 
             var copy = original.DeepCopy();
-            Extensions.値をコピー(original.Id, original.Name, string.Join(", ", original.IdInts), string.Join(", ", original.NameStrings), copy.Id, copy.Name, string.Join(", ", copy.IdInts), string.Join(", ", copy.NameStrings));
+            Extensions.値をコピー(original.Id, original.Name,
+                             string.Join(", ", original.Ids), string.Join(", ", original.Names),
+                             copy.Id, copy.Name,
+                             string.Join(", ", copy.Ids), string.Join(", ", copy.Names));
 
             original.Id = 20;
             original.Name = "XXX";
-            original.IdInts[0] = 0;
-            original.NameStrings[0] = "X";
-            Extensions.値を変更(Extensions.Original, original.Id, original.Name, string.Join(", ", original.IdInts), string.Join(", ", original.NameStrings), copy.Id, copy.Name, string.Join(", ", copy.IdInts), string.Join(", ", copy.NameStrings));
+            original.Ids[0] = 0;
+            original.Names[0] = "X";
+            Extensions.値を変更(Extensions.Original, original.Id, original.Name,
+                            string.Join(", ", original.Ids), string.Join(", ", original.Names),
+                            copy.Id, copy.Name,
+                            string.Join(", ", copy.Ids), string.Join(", ", copy.Names));
 
-            copy.Id = 30;
-            copy.Name = original.Name + "YYY";
-            copy.IdInts[0] = 9;
-            copy.NameStrings[0] = "Y";
-            Extensions.値を変更(Extensions.Copy, original.Id, original.Name, string.Join(", ", original.IdInts), string.Join(", ", original.NameStrings), copy.Id, copy.Name, string.Join(", ", copy.IdInts), string.Join(", ", copy.NameStrings));
             Console.ReadKey();
         }
 
@@ -68,36 +69,36 @@ namespace CsharpObjectの複製Sample
                            {
                                Id = 10,
                                Name = "AAA",
-                               IdInts = new[]
-                                        {
-                                            1,
-                                            2,
-                                            3
-                                        },
-                               NameStrings = new[]
-                                             {
-                                                 "A",
-                                                 "B",
-                                                 "C"
-                                             }
+                               Ids = new[]
+                                     {
+                                         1,
+                                         2,
+                                         3
+                                     },
+                               Names = new[]
+                                       {
+                                           "A",
+                                           "B",
+                                           "C"
+                                       }
                            };
 
             #endregion
 
             var copy = original.DeepCopy();
-            Extensions.値をコピー(original.Id, original.Name, string.Join(", ", original.IdInts), string.Join(", ", original.NameStrings), copy.Id, copy.Name, string.Join(", ", copy.IdInts), string.Join(", ", copy.NameStrings));
+            Extensions.値をコピー(original.Id, original.Name, string.Join(", ", original.Ids), string.Join(", ", original.Names),
+                             copy.Id, copy.Name,
+                             string.Join(", ", copy.Ids), string.Join(", ", copy.Names));
 
             original.Id = 20;
             original.Name = "XXX";
-            original.IdInts[0] = 0;
-            original.NameStrings[0] = "X";
-            Extensions.値を変更(Extensions.Original, original.Id, original.Name, string.Join(", ", original.IdInts), string.Join(", ", original.NameStrings), copy.Id, copy.Name, string.Join(", ", copy.IdInts), string.Join(", ", copy.NameStrings));
+            original.Ids[0] = 0;
+            original.Names[0] = "X";
+            Extensions.値を変更(Extensions.Original, original.Id, original.Name,
+                            string.Join(", ", original.Ids), string.Join(", ", original.Names),
+                            copy.Id, copy.Name,
+                            string.Join(", ", copy.Ids), string.Join(", ", copy.Names));
 
-            copy.Id = 30;
-            copy.Name = original.Name + "YYY";
-            copy.IdInts[0] = 9;
-            copy.NameStrings[0] = "Y";
-            Extensions.値を変更(Extensions.Copy, original.Id, original.Name, string.Join(", ", original.IdInts), string.Join(", ", original.NameStrings), copy.Id, copy.Name, string.Join(", ", copy.IdInts), string.Join(", ", copy.NameStrings));
             Console.ReadKey();
         }
     }

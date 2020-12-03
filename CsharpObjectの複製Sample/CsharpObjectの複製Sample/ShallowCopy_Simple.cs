@@ -9,7 +9,7 @@ namespace CsharpObjectの複製Sample
         /// </summary>
         public void simpleCopy()
         {
-            Console.WriteLine("---シャローコピー：代入---\r\n");
+            Console.WriteLine("------シャローコピー：代入------\r\n");
             var originalId = 10;
             var originalName = "AAA";
             var originalIds = new[]
@@ -29,19 +29,22 @@ namespace CsharpObjectの複製Sample
             var copyName = originalName;
             var copyIds = originalIds;
             var copyNames = originalNames;
-            Extensions.値をコピー_S(originalId, originalName, string.Join(", ", originalIds), string.Join(", ", originalNames), copyId, copyName, string.Join(", ", copyIds), string.Join(", ", copyNames));
 
-            originalId = 20;
-            originalName = "XXX";
-            originalIds[0] = 0;
-            originalNames[0] = "X";
-            Extensions.値を変更_S(Extensions.Original, originalId, originalName, string.Join(", ", originalIds), string.Join(", ", originalNames), copyId, copyName, string.Join(", ", copyIds), string.Join(", ", copyNames));
+            Extensions.値をコピー_S(originalId, originalName,
+                               string.Join(", ", originalIds), string.Join(", ", originalNames),
+                               copyId, copyName,
+                               string.Join(", ", copyIds), string.Join(", ", copyNames));
 
-            copyId = 30;
-            copyName = originalName + "YYY";
-            copyIds[0] = 9;
-            copyNames[0] = "Y";
-            Extensions.値を変更_S(Extensions.Copy, originalId, originalName, string.Join(", ", originalIds), string.Join(", ", originalNames), copyId, copyName, string.Join(", ", copyIds), string.Join(", ", copyNames));
+            originalId = 99;
+            originalName = "Hello, " + "World!";
+            originalIds[0] = 9;
+            originalNames[0] = "あ";
+
+            Extensions.値を変更_S(Extensions.Original, originalId, originalName,
+                              string.Join(", ", originalIds), string.Join(", ", originalNames),
+                              copyId, copyName,
+                              string.Join(", ", copyIds), string.Join(", ", copyNames));
+
             Console.ReadKey();
         }
     }

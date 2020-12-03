@@ -18,7 +18,7 @@ namespace CsharpObjectの複製Sample
 
         public static void 値をコピー_S(int oriI, string oriS, string orInts, string orStrings, int cpI, string cpS, string cpInts, string cpStrings)
         {
-            Console.WriteLine("{0}の値を{1}にコピー\r\n" +
+            Console.WriteLine("{0}の値を{1}に代入\r\n" +
                               "original{2}\t= {6}\t   original{3}\t   = {7}\r\n" +
                               "original{4}\t= {8}  original{5} = {9}\r\n" +
                               "copy{2}\t\t= {10}\t   copy{3}\t   = {11}\r\n" +
@@ -38,7 +38,7 @@ namespace CsharpObjectの複製Sample
 
         public static void 値をコピー(int oriI, string oriS, string orInts, string orStrings, int cpI, string cpS, string cpInts, string cpStrings)
         {
-            Console.WriteLine("{0}の値を{1}にコピー\r\n" +
+            Console.WriteLine("{0}の値を{1}に代入\r\n" +
                               "original.{2}\t= {6}\t  original.{3}\t   = {7}\r\n" +
                               "original.{4}\t= {8} original.{5} = {9}\r\n" +
                               "copy.{2}\t\t= {10}\t  copy.{3}\t   = {11}\r\n" +
@@ -64,14 +64,14 @@ namespace CsharpObjectの複製Sample
         {
             Id = ss.Id;
             Name = ss.Name;
-            IdInts = ss.IdInts;
-            NameStrings = ss.NameStrings;
+            Ids = ss.Ids;
+            Names = ss.Names;
         }
 
         public int Id;
         public string Name;
-        public int[] IdInts;
-        public string[] NameStrings;
+        public int[] Ids;
+        public string[] Names;
 
         public SampleStruct SharrowCopy()
         {
@@ -82,14 +82,59 @@ namespace CsharpObjectの複製Sample
         {
             var clone = SharrowCopy();
 
-            if (clone.IdInts != null)
+            if (clone.Ids != null)
             {
-                clone.IdInts = (int[]) this.IdInts.Clone();
+                clone.Ids = (int[]) this.Ids.Clone();
             }
 
-            if (clone.NameStrings != null)
+            if (clone.Names != null)
             {
-                clone.NameStrings = (string[]) this.NameStrings.Clone();
+                clone.Names = (string[]) this.Names.Clone();
+            }
+
+            return clone;
+        }
+    }
+
+    public struct SampleStruct2
+    {
+        //コピーコンストラクタ
+        public SampleStruct2(SampleStruct2 ss)
+        {
+            SampleStruct = ss.SampleStruct;
+            SampleClass = ss.SampleClass;
+        }
+
+        public SampleStruct SampleStruct;
+        public SampleClass SampleClass;
+
+        public SampleStruct2 SharrowCopy()
+        {
+            return (SampleStruct2) MemberwiseClone();
+        }
+
+        public SampleStruct2 DeepCopy()
+        {
+            var clone = SharrowCopy();
+
+            if (clone.SampleStruct.Ids != null)
+            {
+                clone.SampleStruct.Ids = (int[]) this.SampleStruct.Ids.Clone();
+            }
+
+            if (clone.SampleStruct.Names != null)
+            {
+                clone.SampleStruct.Names = (string[]) this.SampleStruct.Names.Clone();
+            }
+
+            if (clone.SampleClass.Ids != null)
+            {
+                clone.SampleClass.Ids = (int[]) this.SampleClass.Ids.Clone();
+            }
+
+            if (clone.SampleClass.Names != null)
+            {
+                clone.SampleClass.Names = (string[]) this.SampleClass.Names.Clone();
             }
 
             return clone;
@@ -107,14 +152,14 @@ namespace CsharpObjectの複製Sample
         {
             Id = ss.Id;
             Name = ss.Name;
-            IdInts = ss.IdInts;
-            NameStrings = ss.NameStrings;
+            Ids = ss.Ids;
+            Names = ss.Names;
         }
 
         public int Id;
         public string Name;
-        public int[] IdInts;
-        public string[] NameStrings;
+        public int[] Ids;
+        public string[] Names;
 
         public SampleClass SharrowCopy()
         {
@@ -125,14 +170,63 @@ namespace CsharpObjectの複製Sample
         {
             var clone = SharrowCopy();
 
-            if (clone.IdInts != null)
+            if (clone.Ids != null)
             {
-                clone.IdInts = (int[]) this.IdInts.Clone();
+                clone.Ids = (int[]) this.Ids.Clone();
             }
 
-            if (clone.NameStrings != null)
+            if (clone.Names != null)
             {
-                clone.NameStrings = (string[]) this.NameStrings.Clone();
+                clone.Names = (string[]) this.Names.Clone();
+            }
+
+            return clone;
+        }
+    }
+
+    public class SampleClass2
+    {
+        public SampleClass2()
+        {
+        }
+
+        //コピーコンストラクタ
+        public SampleClass2(SampleClass2 sc)
+        {
+            SampleStruct = sc.SampleStruct;
+            SampleClass = sc.SampleClass;
+        }
+
+        public SampleStruct SampleStruct;
+        public SampleClass SampleClass;
+
+        public SampleClass2 SharrowCopy()
+        {
+            return (SampleClass2) MemberwiseClone();
+        }
+
+        public SampleClass2 DeepCopy()
+        {
+            var clone = SharrowCopy();
+
+            if (clone.SampleStruct.Ids != null)
+            {
+                clone.SampleStruct.Ids = (int[]) this.SampleStruct.Ids.Clone();
+            }
+
+            if (clone.SampleStruct.Names != null)
+            {
+                clone.SampleStruct.Names = (string[]) this.SampleStruct.Names.Clone();
+            }
+
+            if (clone.SampleClass.Ids != null)
+            {
+                clone.SampleClass.Ids = (int[]) this.SampleClass.Ids.Clone();
+            }
+
+            if (clone.SampleClass.Names != null)
+            {
+                clone.SampleClass.Names = (string[]) this.SampleClass.Names.Clone();
             }
 
             return clone;
