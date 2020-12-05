@@ -8,108 +8,216 @@ using System.Text;
 
 namespace CsharpRxSample
 {
+    /// <summary>
+    /// 監視対象のオブジェクト(観測対象)に観測者オブジェクト(Observer)を登録して、監視対象が変化したときに観測者に変更を通知する
+    /// </summary>
     internal class SimpleObservable
     {
         /// <summary>
-        /// Observerを生成し、1~5の値を出力するObservableを生成
+        /// Observer(観測者)を生成し、1~5の値を出力するObservable(観測対象)を生成
         /// </summary>
         public void ObservableRange()
         {
-            // public static IObserver<T> Create<T>(Action<T> onNext, Action<Exception> onError, Action onCompleted);
+            Console.WriteLine("---Observer(観測者)とObservarble(観測対象)を手動で生成します---\r\n");
+
+            #region 観測者：Observar
+            // 観測者：public static IObserver<T> Create<T>(Action<T> onNext, Action<Exception> onError, Action onCompleted);
             // 指定された OnNext、OnError、および OnCompleted アクションからオブザーバを作成します
-            // <T>：観測者が受信した要素の型 戻り値：与えられたアクションを使用して実装されたオブザーバーオブジェクト          
+            // Create<T>：観測者が受信した要素の型 戻り値：与えられたアクションを使用して実装されたオブザーバー(観測者)オブジェクト 
             var observer = Observer.Create<int>(
-                                                // OnNextアクションの実装 = 値が発生した
-                                                // ラムダ式で書くと：x => Console.WriteLine(x)
-                                                Console.WriteLine,
-                                                ex =>
+                                               // OnNextが起こった時に実行される動作 = 値が発生した Action<T>  
+                                               x =>
                                                     {
-                                                        // OnErrorアクションの実装 = エラーが発生した
+                                                        Console.WriteLine(string.Format("値が発生した：{0}", x));
+                                                        Console.ReadKey();
+                                                    },
+                                               // OnErrorが起こった時に実行される動作 = エラーが発生した Action<Exception>
+                                               ex =>
+                                                    {
                                                         throw ex;
                                                     },
-                                                () =>
+                                               // OnCompletedが起こった時に実行される動作 = 正常に終了した Action
+                                               () =>
                                                     {
-                                                        // OnCompletedアクションの実装 = 正常に終了した
+                                                        Console.WriteLine("正常に終了しました");
+                                                        Console.ReadKey();
+
                                                     });
 
-            // public static IObservable<int> Range(int start, int count)
+            #endregion
+
+            #region 観測対象：Observable
+
+            // https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh211896(v=vs.103)
+            // 観測対象：public static IObservable<int> Range(int start, int count)
             // 指定された範囲内で観測可能(オブザーバブル)な積分数列を生成します
-            // 戻り値：連続する整数の範囲を含む観測可能なシーケンス          
+            // 戻り値：連続する整数の範囲を含む観測可能なシーケンス
             var observable = Observable.Range(1, 5); // シーケンスの最初の整数の値, 生成する連続整数の数
 
-            // 引数として渡されたobserverになんらかの現象が起こったことを通知する = 観測対象に観測者を登録する
-            // IDisposable Subscribe(System.IObserver<T> observer);　戻り値:IDisposable
+            // ★IObservable<T>(観測対象)は自身の状態の変化に応じてこれら(OnXXXメソッド)を適切に呼び出すことが求められる
+            // ★IObserver<T>(観測者)の実装ではそれに適切に応答することが求められます = OnXXXメソッド内で渡されたデリゲートを実行する
+
+            #endregion
+
+            // 今回のSubscribe：IDisposable Subscribe(System.IObserver<T> observer);
+            // IObservable<T>のメンバー Subscribe：オブザーバーが通知を受け取ることをプロバイダーに通知します
+            // 引数として渡されたobserver(観測対象)になんらかの現象が起こったことを通知する = observer(観測対象)にobservable(観測者)を登録する
             observable.Subscribe(observer);
         }
 
         /// <summary>
-        /// Observerを自動生成し、1~5の値を出力するObservableを生成
+        /// Observer(観測者)を自動生成し、1~5の値を発行するObservable(観測対象)を生成
         /// </summary>
         public void ObservableRange_Simple()
         {
-            // ★わざわざ Observer.Create を使用してObserver(観測者)を作るのは面倒
+            Console.WriteLine("\r\n---Observer(観測者)は自動生成し、observable(観測対象)を手動で生成します---\r\n");
+            // 観測者：★わざわざ Observer.Create を使用してObserver(観測者)を作るのは面倒
+
+            #region 観測対象：Observable
+
+            // https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh211896(v=vs.103)
+            // 観測対象：public static IObservable<int> Range(int start, int count)
             var observable = Observable.Range(1, 5);
 
-            // このSubscribeは ObservableExtensions.cs Observable<T>の拡張メソッド
-            // ここでSubscribeの引数としてデリゲート(メソッドの処理内容)を渡すと、内部でObserver(観測者)を自動生成する
-            observable.Subscribe(Console.WriteLine /*x => Console.WriteLine(x)*/);
+            // ★IObservable<T>(観測対象)は自身の状態の変化に応じてこれら(OnXXXメソッド)を適切に呼び出すことが求められる
+            // ★IObserver<T>(観測者)の実装ではそれに適切に応答することが求められます = OnXXXメソッド内で渡されたデリゲートを実行する
 
-            // 一行で書くとこうなる
-            Observable.Range(1, 5).Subscribe(Console.WriteLine);
+            #endregion
 
-            // 色々なオーバーロードがある
-            Observable.Range(1, 5).Subscribe(Console.WriteLine,
-                                             ex => Console.WriteLine("Error"),
-                                             () => Console.WriteLine("Completed"));
+            // 今回のSubscribe：public static IDisposable Subscribe<T>(this IObservable<T> source, Action<T> onNext, Action<Exception> onError, Action onCompleted);
+            // IObservable<T>のメンバー Subscribe：オブザーバーが通知を受け取ることをプロバイダーに通知します
+            // 引数として渡されたobserver(観測対象)になんらかの現象が起こったことを通知する = observer(観測対象)にobservable(観測者)を登録する
+            // ★IObservable<T>のメンバーは引数なしのSubscribeだけ　ここで使用している Subscribe<T> は ObservableExtensions.cs Observable<T>の拡張メソッド
+
+            // ここでSubscribeの引数としてデリゲート(メソッドの処理内容)を渡すと、内部でObserver<T>(観測者)を自動生成する
+
+            /* public static IDisposable Subscribe<T>(this IObservable<T> source, Action<T> onNext, Action<Exception> onError, Action onCompleted)
+            * { 
+            *   return　source.Subscribe(new Observer<T>(onNext, onError, onCompleted)); 
+            * }  
+            */
+
+            Observable.Range(1, 5).Subscribe(
+                                             // OnNextが起こった時に実行される動作 = 値が発生した Action<T> 
+                                             x =>
+                                                  {
+                                                      Console.WriteLine(string.Format("OnNext 値が発生した：{0}", x));
+                                                      Console.ReadKey();
+                                                  },
+                                             // OnErrorが起こった時に実行される動作 = エラーが発生した Action<Exception>
+                                             ex =>
+                                                  {
+                                                      throw ex;
+                                                  },
+                                             // OnCompletedが起こった時に実行される動作 = 正常に終了した Action
+                                             () =>
+                                                  {
+                                                      Console.WriteLine("OnCompleted 正常に終了しました");
+                                                      Console.ReadKey();
+
+                                                  });
         }
 
         /// <summary>
-        /// Observerを自動生成し、1, 2, 3,という値を発行して完了する
+        /// Func<IObserver<TResult>,Action> subscribe をメソッドとして実装 = IDisposable Subscribe(IObserver<T> observer); の処理を書いている
+        /// </summary>
+        /// <param name="observer"></param>
+        /// <returns></returns>
+        public static Action HandmadeSubscribe(IObserver<int> observer) 
+        {
+            // ★IObservable<T>(観測対象)は自身の状態の変化に応じてこれら(OnXXXメソッド)を適切に呼び出すことが求められる
+            // ★IObserver<T>(観測者)の実装ではそれに適切に応答することが求められます = OnXXXメソッド内で渡されたデリゲートを実行する
+            observer.OnNext(1);
+            observer.OnNext(3);
+            observer.OnNext(4);
+            observer.OnNext(2);
+            observer.OnNext(5);
+            observer.OnCompleted();
+
+            return () => Console.WriteLine("Disposable action");
+        }
+
+        /// <summary>
+        /// Observer(観測者)を自動生成し、1~5の値を発行するObservable(観測対象)を生成
         /// </summary>
         public void ObservableCreate()
         {
-            // public static IObservable<TResult> Create<TResult>(Func<IObserver<TResult>,Action> subscribe) ★Func<T, TResult>
-            // 指定されたsubscribeメソッドの実装から、指定されたsubscribeで観測可能なシーケンス(Observable)を作成します
+            Console.WriteLine("\r\n---Observer(観測者)は自動生成し、observable(観測対象)を手動で生成します---\r\n");
+            // 観測者：★わざわざ Observer.Create を使用してObserver(観測者)を作るのは面倒
 
-            // 引数：public Action XXX(IObserver<TResult> xxx){ return Dispose(); ※public void Dispose(); ★Disposeされた時に実行される処理 }; 
-            // ▶呼び出し XXX(IObserver<TResult> xxx); = ★この呼び出し方をする処理を引数としてラムダ式で書く　
-            // ※Subscribe(); と同じ呼び出し方　Subscribeの戻り値はIDisposable
+            #region 観測対象
 
-            var observable = Observable.Create<int>(observer /*引数：IObserver<TResult>*/ =>
-                                                        {
-                                                            // 1, 2, 3と順番に値を発行して終了するIObservable<int>を生成する
+            // https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229122(v=vs.103)
+            // 観測対象：public static IObservable<TResult> Create<TResult>(Func<IObserver<TResult>,Action> subscribe) ★Func<T, TResult>
+            // 指定されたsubscribeメソッドの実装から、指定されたsubscribeで観測可能なシーケンス(Observable：観測対象)を作成します　
 
-                                                            // 引数のIObserver<int>に対してOn****メソッドを呼ぶ
-                                                            observer.OnNext(1);
-                                                            observer.OnNext(2);
-                                                            observer.OnNext(3);
-                                                            observer.OnCompleted();
+            // 引数　：Func<IObserver<TResult>,Action>　結果として得られる observable シーケンスの subscribe メソッドの実装で、IDisposable でラップされるアクションデリゲートを返します
+            // 戻り値：IObservable<TResult>　subscribeメソッドに指定された実装を持つ観測可能なシーケンス
 
-                                                            // 戻り値：Action　Disposeされた時に実行される処理
-                                                            return () => Console.WriteLine("Disposable action");
-                                                        }) /* 結果のオブザーバブルシーケンスのサブスクライブメソッドの実装で、IDisposableにラップされるアクションデリゲートを返します */;
+            // Funcの引数と戻り値は何を表しているのか？：結果として得られる observable シーケンスの subscribe メソッドの実装
+            // ポイント：IObservable<T>を継承した Observable<T>.cs の IDisposable Subscribe(IObserver<T> observer){ ★★★★★ } の ★部分の実装をしている そのため引数の名前が[subscribe]になっている
 
-            // public static IObservable<TResult> Create<TResult>(Func<IObserver<TResult>,IDisposable> subscribe)
-            var observable2 = Observable.Create<int>(observer =>
-                                                         {
-                                                             observer.OnNext(10);
-                                                             observer.OnCompleted();
-                                                             //observer.OnError();
-                                                             return System.Reactive.Disposables.Disposable.Empty;
-                                                         });
+            // 1, 2, 3, 4, 5と順番に値を発行して終了する観測対象(IObservable<int>)を生成する
+            // var observable = Observable.Range(1, 5);　これと同じ
+            var observable = Observable.Create<int>(observer => // 引数：IObserver<TResult>
+                                                                {
+                                                                    // ★IObservable<T>(観測対象)は自身の状態の変化に応じてこれら(OnXXXメソッド)を適切に呼び出すことが求められる
+                                                                    // ★IObserver<T>(観測者)の実装ではそれに適切に応答することが求められます = OnXXXメソッド内で渡されたデリゲートを実行する
 
-            // ★わざわざ Observer.Create を使用してObserver(観測者)を作るのは面倒
+                                                                    observer.OnNext(1);
+                                                                    observer.OnNext(3);
+                                                                    observer.OnNext(4);
+                                                                    observer.OnNext(2);
+                                                                    observer.OnNext(5);
 
-            // このSubscribeは System.ObservableExtensions.cs Observable<T>の拡張メソッド
+                                                                    //observer.OnError(Exception ex);
+
+                                                                    observer.OnCompleted();
+
+                                                                    // 戻り値：Action　Disposeされた時に実行される処理
+                                                                    return () => Console.WriteLine("Disposable action");
+                                                                });
+
+            // 上のコードと同じ
+            var observable2 = Observable.Create<int>(HandmadeSubscribe);
+
+            #endregion
+
+            // 今回のSubscribe：public static IDisposable Subscribe<T>(this IObservable<T> source, Action<T> onNext, Action<Exception> onError, Action onCompleted);
+            // IObservable<T>のメンバー Subscribe：オブザーバーが通知を受け取ることをプロバイダーに通知します
+            // 引数として渡されたobserver(観測対象)になんらかの現象が起こったことを通知する = observer(観測対象)にobservable(観測者)を登録する
+            // ★IObservable<T>のメンバーは引数なしのSubscribeだけ　ここで使用している Subscribe<T> は ObservableExtensions.cs Observable<T>の拡張メソッド
+
             // ここでSubscribeの引数としてデリゲート(メソッドの処理内容)を渡すと、内部でObserver(観測者)を自動生成する
 
-            // ここでonNext,onCompletedの処理を記述
-            observable.Subscribe(Console.WriteLine /*x => Console.WriteLine(x)*/,
-                                 () => Console.WriteLine("完了"));
+            /* public static IDisposable Subscribe<T>(this IObservable<T> source, Action<T> onNext, Action<Exception> onError, Action onCompleted)
+             * { 
+             *   return　source.Subscribe(new Observer<T>(onNext, onError, onCompleted)); 
+             * }  
+             */
 
-            // ここでonNext,onErrorの処理を記述
-            observable.Subscribe(Console.WriteLine /*x => Console.WriteLine(x)*/,
-                                 e => Console.WriteLine(e.Message));
+            observable.Subscribe(
+                                    // OnNextが起こった時に実行される動作 = 値が発生した Action<T> 
+                                    x =>
+                                    {
+                                        Console.WriteLine(string.Format("OnNext 値が発生した：{0}", x));
+                                        Console.ReadKey();
+                                    },
+                                    // OnErrorが起こった時に実行される動作 = エラーが発生した Action<Exception>
+                                    ex =>
+                                    {
+                                        throw ex;
+                                    },
+                                    // OnCompletedが起こった時に実行される動作 = 正常に終了した Action
+                                    () =>
+                                    {
+                                        Console.WriteLine("OnCompleted 正常に終了しました");
+                                        Console.ReadKey();
+
+                                    });
+
+            
+
         }
     }
 }

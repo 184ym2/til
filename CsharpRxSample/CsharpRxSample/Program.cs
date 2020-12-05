@@ -13,9 +13,9 @@ namespace CsharpRxSample
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
-        }
+            var so = new SimpleObservable();
+            so.ObservableRange();
+            so.ObservableRange_Simple();
+            so.ObservableCreate();        }
     }
 }

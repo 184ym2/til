@@ -14,3 +14,12 @@
 \\192.168.0.250\d\個人フォルダ\いわお\■Local_til\■CsharpRxSample\CsharpRxSample\bin\Debug\System.Reactive.PlatformServices.xml
 \\192.168.0.250\d\個人フォルダ\いわお\■Local_til\■CsharpRxSample\CsharpRxSample\obj\x86\Debug\CsharpRxSample.exe
 \\192.168.0.250\d\個人フォルダ\いわお\■Local_til\■CsharpRxSample\CsharpRxSample\obj\x86\Debug\CsharpRxSample.pdb
+E:\@til\CsharpRxSample\CsharpRxSample\bin\Debug\CsharpRxSample.exe
+E:\@til\CsharpRxSample\CsharpRxSample\bin\Debug\CsharpRxSample.pdb
+E:\@til\CsharpRxSample\CsharpRxSample\obj\x86\Debug\CsharpRxSample.Properties.Resources.resources
+E:\@til\CsharpRxSample\CsharpRxSample\obj\x86\Debug\CsharpRxSample.csproj.GenerateResource.cache
+E:\@til\CsharpRxSample\CsharpRxSample\obj\x86\Debug\CsharpRxSample.csproj.CoreCompileInputs.cache
+E:\@til\CsharpRxSample\CsharpRxSample\obj\x86\Debug\CsharpRxSample.csproj.CopyComplete
+E:\@til\CsharpRxSample\CsharpRxSample\obj\x86\Debug\CsharpRxSample.exe
+E:\@til\CsharpRxSample\CsharpRxSample\obj\x86\Debug\CsharpRxSample.pdb
+E:\@til\CsharpRxSample\CsharpRxSample\obj\x86\Debug\CsharpRxSample.csprojAssemblyReference.cache
