@@ -9,7 +9,7 @@ namespace CsharpRxSample
     /// 汎用Obsever(観測者)
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    class Observer<T> : IObserver<T>
+    internal class _Observer<T> : IObserver<T>
     {
         private readonly Action onCompleted = null;
         private readonly Action<Exception> onError = null;
@@ -21,7 +21,7 @@ namespace CsharpRxSample
         /// <param name="onNext">OnNextのときに呼び出されるデリゲート</param>
         /// <param name="onError">OnErrorのときに呼び出されるデリゲート</param>
         /// <param name="onCompleted">OnCompletedのときに呼び出されるデリゲート</param>
-        public Observer(Action<T> onNext, Action<Exception> onError, Action onCompleted)
+        public _Observer(Action<T> onNext, Action<Exception> onError, Action onCompleted)
         {
             this.onNext = onNext;
             this.onError = onError;
@@ -34,7 +34,7 @@ namespace CsharpRxSample
         public void OnCompleted()
         {
             if (this.onCompleted != null)
-                this.onCompleted(); // OnCompletedが呼ばれたら受け取ったデリゲートを実行　例）observer.OnCompleted();
+                this.onCompleted(); // OnCompletedが呼ばれたら、受け取ったデリゲートを実行　例）observer.OnCompleted();
         }
 
         /// <summary>
@@ -51,14 +51,14 @@ namespace CsharpRxSample
         /// オブザーバーに新しいデータを提供します。
         /// </summary>
         /// <param name="value">現在の通知情報</param>
-        public void OnNext(T value)　
+        public void OnNext(T value)
         {
             if (this.onNext != null)
-                this.onNext(value); // OnNextが呼ばれたら受け取ったデリゲートを実行　例）observer.OnNext(1);
+                this.onNext(value); // OnNextが呼ばれたら、受け取ったデリゲートを実行　例）observer.OnNext(1);
         }
     }
 
-    static class ObservableHelper
+    internal static class ObservableHelper
     {
         /// <summary>
         /// オブザーバー(観測者)が通知を受け取ることをプロバイダー(観測対象)に通知します。
@@ -73,8 +73,8 @@ namespace CsharpRxSample
         {
             // ObservableExtensions.cs のIObservable<T>拡張メソッドも このような実装がされている
             // 1. 拡張メソッドで受け取ったデリゲートを引数として、Observer<T>(観測者)を生成 
-            // 2. 生成した観測者を引数として、IObservableの IDisposable Subscribe(IObserver<T> observer); を実行する
-            return source.Subscribe(new Observer<T>(onNext, onError, onCompleted));
+            // 2. 生成したObserver<T>(観測者)を引数として、IObservable<T>(観測対象)の IDisposable Subscribe(IObserver<T> observer); を実行する
+            return source.Subscribe(new _Observer<T>(onNext, onError, onCompleted));
         }
     }
 }

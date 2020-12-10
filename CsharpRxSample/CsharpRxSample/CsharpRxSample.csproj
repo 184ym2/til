@@ -64,11 +64,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Message.cs" />
+    <Compile Include="ObservableOnly.cs" />
+    <Compile Include="ObservableOnly2.cs" />
+    <Compile Include="Observar_and_Observable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimpleObservable.cs" />
     <Compile Include="SimpleSubject.cs" />
-    <Compile Include="IObserver_T_の省略\Observer.cs" />
+    <Compile Include="IObserver_T_の省略\_Observer.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

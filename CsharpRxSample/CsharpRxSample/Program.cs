@@ -5,17 +5,18 @@ using System.Windows.Forms;
 
 namespace CsharpRxSample
 {
-    static class Program
+    internal static class Program
     {
-        /// <summary>
-        /// アプリケーションのメイン エントリ ポイントです。
-        /// </summary>
-        [STAThread]
-        static void Main()
+        private static void Main()
         {
-            var so = new SimpleObservable();
-            so.ObservableRange();
-            so.ObservableRange_Simple();
-            so.ObservableCreate();        }
+            var observarAndObservable = new Observar_And_Observable();
+            observarAndObservable.ObservarAndObservablel();
+
+            var observableOnly = new ObservableOnly();
+            observableOnly.Observable_Only();
+
+            var observableOnly2 = new ObservableOnly2();
+            observableOnly2.Observable_Only2();
+        }
     }
 }
