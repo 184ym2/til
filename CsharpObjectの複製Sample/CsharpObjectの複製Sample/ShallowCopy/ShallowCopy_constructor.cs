@@ -13,7 +13,7 @@ namespace CsharpObjectの複製Sample
         /// </summary>
         public void stractCopy_Constructor()
         {
-            Console.WriteLine("\r\n------2-A 構造体(struct)のシャロ―コピー：コピーコンストラクタ------\r\n");
+            //Console.WriteLine("\r\n------構造体(struct)のシャロ―コピー：コピーコンストラクタ------\r\n");
 
             #region newする
 
@@ -37,7 +37,7 @@ namespace CsharpObjectの複製Sample
 
             #endregion
 
-            Console.WriteLine("---SampleStruct 構造体のメンバーに int型/string型/配列 を含め、そのメンバーを表示する---");
+            Console.WriteLine("---CC：SampleStruct 構造体のメンバーに int型/string型/配列 を含め、そのメンバーを表示する---");
             var copy = new SampleStruct(original);
 
             Action 構造体のメンバー = () =>
@@ -66,7 +66,6 @@ namespace CsharpObjectの複製Sample
         /// </summary>
         public void stractCopy_Constructor2()
         {
-            Console.WriteLine("\r\n------2-A 構造体(struct)のシャロ―コピー：コピーコンストラクタ------\r\n");
 
             #region newする
 
@@ -110,7 +109,7 @@ namespace CsharpObjectの複製Sample
 
             #endregion
 
-            Console.WriteLine("---SampleStruct2 構造体のメンバーに SampleStruct 構造体と SampleClass クラスを含め、そのメンバーを表示する---\r\n");
+            Console.WriteLine("---CC：SampleStruct2 構造体のメンバーに SampleStruct 構造体と SampleClass クラスを含め、そのメンバーを表示する---\r\n");
             var copy = new SampleStruct2(original);
 
             Action 構造体のメンバーSampleStruct構造体 = () =>
@@ -160,7 +159,7 @@ namespace CsharpObjectの複製Sample
         /// </summary>
         public void classCopy_Constructor()
         {
-            Console.WriteLine("\r\n------2-B クラス(class)のシャロ―コピー：コピーコンストラクタ------\r\n");
+            //Console.WriteLine("\r\n------クラス(class)のシャロ―コピー：コピーコンストラクタ------\r\n");
 
             #region newする
 
@@ -184,7 +183,7 @@ namespace CsharpObjectの複製Sample
 
             #endregion
 
-            Console.WriteLine("---SampleClass クラスのメンバーに int型/string型/配列 を含め、そのメンバーを表示する---");
+            Console.WriteLine("---CC：SampleClass クラスのメンバーに int型/string型/配列 を含め、そのメンバーを表示する---");
             var copy = new SampleClass(original);
 
             Action クラスのメンバー = () =>
@@ -214,7 +213,6 @@ namespace CsharpObjectの複製Sample
         /// </summary>
         public void classCopy_Constructor2()
         {
-            Console.WriteLine("\r\n------2-B クラス(class)のシャロ―コピー：コピーコンストラクタ------\r\n");
 
             #region newする
 
@@ -258,7 +256,7 @@ namespace CsharpObjectの複製Sample
 
             #endregion
 
-            Console.WriteLine("---SampleClass2 クラスのメンバーに SampleStruct 構造体と SampleClass クラスを含め、そのメンバーを表示する---\r\n");
+            Console.WriteLine("---CC：SampleClass2 クラスのメンバーに SampleStruct 構造体と SampleClass クラスを含め、そのメンバーを表示する---\r\n");
             var copy = new SampleClass2(original);
 
             Action クラスのメンバーSampleStruct構造体 = () =>

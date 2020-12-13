@@ -59,7 +59,7 @@ namespace CsharpObjectの複製Sample
 
     public struct SampleStruct
     {
-        //コピーコンストラクタ
+        // コピーコンストラクタ
         public SampleStruct(SampleStruct ss)
         {
             Id = ss.Id;
@@ -73,6 +73,7 @@ namespace CsharpObjectの複製Sample
         public int[] Ids;
         public string[] Names;
 
+        // MemberwiseClone
         public SampleStruct SharrowCopy()
         {
             return (SampleStruct) MemberwiseClone();
@@ -98,7 +99,7 @@ namespace CsharpObjectの複製Sample
 
     public struct SampleStruct2
     {
-        //コピーコンストラクタ
+        // コピーコンストラクタ
         public SampleStruct2(SampleStruct2 ss)
         {
             SampleStruct = ss.SampleStruct;
@@ -108,6 +109,7 @@ namespace CsharpObjectの複製Sample
         public SampleStruct SampleStruct;
         public SampleClass SampleClass;
 
+        // MemberwiseClone
         public SampleStruct2 SharrowCopy()
         {
             return (SampleStruct2) MemberwiseClone();
@@ -147,7 +149,7 @@ namespace CsharpObjectの複製Sample
         {
         }
 
-        //コピーコンストラクタ
+        // コピーコンストラクタ
         public SampleClass(SampleClass ss)
         {
             Id = ss.Id;
@@ -161,6 +163,7 @@ namespace CsharpObjectの複製Sample
         public int[] Ids;
         public string[] Names;
 
+        // MemberwiseClone
         public SampleClass SharrowCopy()
         {
             return (SampleClass) MemberwiseClone();
@@ -190,7 +193,7 @@ namespace CsharpObjectの複製Sample
         {
         }
 
-        //コピーコンストラクタ
+        // コピーコンストラクタ
         public SampleClass2(SampleClass2 sc)
         {
             SampleStruct = sc.SampleStruct;
@@ -200,6 +203,7 @@ namespace CsharpObjectの複製Sample
         public SampleStruct SampleStruct;
         public SampleClass SampleClass;
 
+        // MemberwiseClone
         public SampleClass2 SharrowCopy()
         {
             return (SampleClass2) MemberwiseClone();

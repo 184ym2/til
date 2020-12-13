@@ -56,11 +56,13 @@ namespace CsharpObjectの複製Sample
                                       refout.参照型();
                                   };
 
-            shallowCopySubstitution();
-            shallowCopyConstructor();
-            shallowCopyMemberwiseClone();
+            //shallowCopySubstitution();
+            //shallowCopyConstructor();
+            //shallowCopyMemberwiseClone();
 
-            値渡しと参照渡し();
+            //値渡しと参照渡し();
+
+            deepCopy();
         }
     }
 }

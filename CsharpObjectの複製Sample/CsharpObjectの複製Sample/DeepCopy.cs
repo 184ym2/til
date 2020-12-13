@@ -43,10 +43,10 @@ namespace CsharpObjectの複製Sample
                              copy.Id, copy.Name,
                              string.Join(", ", copy.Ids), string.Join(", ", copy.Names));
 
-            original.Id = 20;
-            original.Name = "XXX";
-            original.Ids[0] = 0;
-            original.Names[0] = "X";
+            original.Id = 99;
+            original.Name = "Hello, " + "World!";
+            original.Ids[0] = 9;
+            original.Names[0] = "あ";
             Extensions.値を変更(Extensions.Original, original.Id, original.Name,
                             string.Join(", ", original.Ids), string.Join(", ", original.Names),
                             copy.Id, copy.Name,
@@ -90,10 +90,10 @@ namespace CsharpObjectの複製Sample
                              copy.Id, copy.Name,
                              string.Join(", ", copy.Ids), string.Join(", ", copy.Names));
 
-            original.Id = 20;
-            original.Name = "XXX";
-            original.Ids[0] = 0;
-            original.Names[0] = "X";
+            original.Id = 99;
+            original.Name = "Hello, " + "World!";
+            original.Ids[0] = 9;
+            original.Names[0] = "あ";
             Extensions.値を変更(Extensions.Original, original.Id, original.Name,
                             string.Join(", ", original.Ids), string.Join(", ", original.Names),
                             copy.Id, copy.Name,
