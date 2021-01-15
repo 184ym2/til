@@ -1,0 +1,7 @@
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\bin\Debug\GetFolder.exe
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\bin\Debug\GetFolder.pdb
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\obj\x86\Debug\GetFolder.Form1.resources
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\obj\x86\Debug\GetFolder.Properties.Resources.resources
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\obj\x86\Debug\GetFolder.csproj.GenerateResource.Cache
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\obj\x86\Debug\GetFolder.exe
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\obj\x86\Debug\GetFolder.pdb
