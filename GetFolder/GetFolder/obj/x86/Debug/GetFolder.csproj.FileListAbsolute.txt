@@ -5,3 +5,10 @@
 \\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\obj\x86\Debug\GetFolder.csproj.GenerateResource.Cache
 \\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\obj\x86\Debug\GetFolder.exe
 \\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\obj\x86\Debug\GetFolder.pdb
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\obj\x86\Debug\GetFolder.csprojResolveAssemblyReference.cache
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\bin\Debug\System.Reactive.Core.dll
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\bin\Debug\System.Reactive.Interfaces.dll
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\bin\Debug\System.Reactive.Linq.dll
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\bin\Debug\System.Reactive.Core.xml
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\bin\Debug\System.Reactive.Interfaces.xml
+\\192.168.0.250\d\個人フォルダ\いわお\@til\GetFolder\GetFolder\bin\Debug\System.Reactive.Linq.xml

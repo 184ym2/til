@@ -48,9 +48,9 @@ namespace CsharpIEnumerableIEnumeratorSample
                 allIds.Append(id + " ");
             }
 
-            // 発生条件：IEnumrable<T>型の変数を複数foreach(ForEach)した場合        
+            // 発生条件：IEnumrable<T>型の変数を複数、foreach(ForEach)した場合
             // 回避方法：変数に代入する前に、IEnumrable<T>を配列（ToArray）やList（ToList）に変換をする
-            // ※全件操作・どのような動きをするかわからないクラス・foreach(ForEach)を2回するものは「必ず配列・Listに変換」する
+            // 　　　　　全件操作・どのような動きをするかわからないクラス・foreach(ForEach)を2回するものは「必ず配列・Listに変換」する
         }
     }
 }

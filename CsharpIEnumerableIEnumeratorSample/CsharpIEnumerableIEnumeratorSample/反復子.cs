@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CsharpIEnumerableIEnumeratorSample
 {
-    internal class LINQ即時評価
+    internal class 反復子
     {
         public void 即時評価()
         {
@@ -17,12 +17,11 @@ namespace CsharpIEnumerableIEnumeratorSample
 
             var range = Enumerable.Range(1, 6); // データを取得しているわけではない
 
-            var average = range.Average(); // 
+            var average = range.Average(); // 実際はここ
 
-            var sum = range.Sum(); // 
+            var sum = range.Sum(); // 実際はここ
 
-
-            var array = new int[]
+            var array = new int[] 
                         {
                             1,
                             2,
@@ -32,20 +31,21 @@ namespace CsharpIEnumerableIEnumeratorSample
                             6
                         };
 
-
             var average2 = array.Average();
 
             var sum2 = array.Sum();
 
             var select = array.Select(e => e);
 
+            var range2 = FirstLast(1, 6); // 実際にデータを取得しているわけではない
 
-            var range2 = FirstLast(1, 6); // データを取得しているわけではない
+           　var average3 = range2.Average(); // シングルトン値を生成：即時評価
 
-            var average3 = range2.Average(); // 実際はここ
+            var sum3 = range2.Sum(); // シングルトン値を生成：即時評価
 
-            var sum3 = range2.Sum(); // 実際はここ
+            var select3 = range.Select(e=>e); // シーケンスを生成するので遅延評価
 
+            var enumerator = range2.GetEnumerator(); // 列挙子を返す：IEnumerator<T>
         }
 
         /// <summary>
@@ -58,9 +58,12 @@ namespace CsharpIEnumerableIEnumeratorSample
         {
             for (var namber = first; namber <= last; namber++)
                 yield return namber;
-            // 反復子？
         }
 
+        /// <summary>
+        /// 1-6の数字を生成する
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<int> FirstSix()
         {
             yield return 1;

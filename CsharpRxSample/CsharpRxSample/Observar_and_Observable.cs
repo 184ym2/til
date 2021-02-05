@@ -114,7 +114,7 @@ namespace CsharpRxSample
             // 上のコードと同じ：手動生成したHandmadeSubscribe()を引数が求める Func<IObserver<int>, Action> に変換
             var observable2 = Observable.Create<int>((Func<IObserver<int>, Action>) HandmadeSubscribe);
 
-            // 上のコードと
+            // 上のコードと同じ
             var observable3 = Observable.Range(1, 5);
 
             #endregion

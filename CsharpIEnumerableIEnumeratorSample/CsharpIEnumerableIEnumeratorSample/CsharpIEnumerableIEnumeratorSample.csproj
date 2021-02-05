@@ -49,7 +49,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MultipleEnumeration.cs" />
-    <Compile Include="LINQ即時評価.cs" />
+    <Compile Include="反復子.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\CsharpIEnumerableIEnumeratorSample.exe" />

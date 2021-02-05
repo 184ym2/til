@@ -2,3 +2,7 @@
 \\192.168.0.250\d\個人フォルダ\いわお\■Local_til\CsharpConstructorSample\CsharpConstructorSample\bin\Debug\CsharpConstructorSample.pdb
 \\192.168.0.250\d\個人フォルダ\いわお\■Local_til\CsharpConstructorSample\CsharpConstructorSample\obj\x86\Debug\CsharpConstructorSample.exe
 \\192.168.0.250\d\個人フォルダ\いわお\■Local_til\CsharpConstructorSample\CsharpConstructorSample\obj\x86\Debug\CsharpConstructorSample.pdb
+\\192.168.0.250\d\個人フォルダ\いわお\@til\CsharpConstructorSample\CsharpConstructorSample\obj\x86\Debug\CsharpConstructorSample.exe
+\\192.168.0.250\d\個人フォルダ\いわお\@til\CsharpConstructorSample\CsharpConstructorSample\obj\x86\Debug\CsharpConstructorSample.pdb
+\\192.168.0.250\d\個人フォルダ\いわお\@til\CsharpConstructorSample\CsharpConstructorSample\bin\Debug\CsharpConstructorSample.exe
+\\192.168.0.250\d\個人フォルダ\いわお\@til\CsharpConstructorSample\CsharpConstructorSample\bin\Debug\CsharpConstructorSample.pdb

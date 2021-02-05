@@ -24,6 +24,9 @@ namespace CsharpConstructorSample
             改行();
 
             var sm4 = new ConstructorSampleClass("★", "★", "★");
+
+
+            var sc = new StructConstructor();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace CsharpIEnumerableIEnumeratorSample
             var multiple = new MultipleEnumeration();
             multiple.複数列挙の可能性();
 
-            var lazy = new LINQ即時評価();
+            var lazy = new 反復子();
             lazy.即時評価();
         }
     }
