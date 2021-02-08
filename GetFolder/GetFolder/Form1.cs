@@ -71,14 +71,12 @@ namespace GetFolder
             // https://docs.microsoft.com/ja-jp/dotnet/api/system.io.directory.enumeratedirectories?view=net-5.0
             // 絶対・相対パス, 検索文字列, ディレクトリ指定
             // 全探索ではなく、見つかり次第結果を返すため、サブフォルダを一つ一つ列挙する場合はこちらのほうが早い
-            var sss = System.IO.Directory.EnumerateDirectories(path, searchPattern, System.IO.SearchOption.AllDirectories).ToArray();
             return System.IO.Directory.EnumerateDirectories(path, searchPattern, System.IO.SearchOption.AllDirectories).ToArray();
 
             // Directory.GetDirectoriesメソッド(.NET Framwork 2.0以降)
             // https://docs.microsoft.com/ja-jp/dotnet/api/system.io.directory.getdirectories?view=net-5.0
             // 絶対・相対パス, 検索文字列, ディレクトリ指定
             return System.IO.Directory.GetDirectories(path, searchPattern, System.IO.SearchOption.AllDirectories);
-            
         }
 
         public void 取得したフォルダを表示()

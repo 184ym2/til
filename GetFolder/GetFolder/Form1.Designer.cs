@@ -127,6 +127,7 @@
             this.Controls.Add(this.uiフォルダ表示);
             this.Controls.Add(this.uiパス入力);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
