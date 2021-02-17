@@ -19,13 +19,6 @@ namespace GetFolder
         {
             InitializeComponent();
 
-            //ui表示.Click += (sender, args) =>
-            //                  {
-            //                      uiフォルダ表示.Items.Clear();
-            //                      uiフォルダ表示.Refresh();
-            //                      取得したフォルダを表示();
-            //                  };
-
             uiコピー.Click += (sender, args) =>
                                {
                                    var sb = new StringBuilder();
@@ -43,16 +36,15 @@ namespace GetFolder
 
         private void ui表示更新()
         {
-            // 間違っていたコード：イベント名が"KeyDown"ではなく"Click"になっている
+            // 間違っていたコード：Observable.FromEventPattern<KeyEventArgs>(this, "Click").Where(e => e.EventArgs.KeyCode == Keys.F5);
+            // 間違っていた箇所　：イベント名が"KeyDown"ではなく"Click"になっている
             // 例外：The second parameter of the event delegate must be assignable to 'System.Windows.Forms.KeyEventArgs'.
             // 訳　：イベントデリゲートの2番目のパラメータは、'System.Windows.Forms.KeyEventArgs'に代入可能である必要があります。
-            // Observable.FromEventPattern<KeyEventArgs>(this, "Click").Where(e => e.EventArgs.KeyCode == Keys.F5);
-
-            // 理由：Clickイベント(public event EventHandler Click;)は、public delegate void EventHandler(object? sender, EventArgs e); の第2引数にpublic class EventArgs というイベントデータを渡す(イベント データを含まないイベントに使用する値を提供します)
-            // 　　　KeyDownイベント(public event System.Windows.Forms.KeyEventHandler KeyDown;)は、public delegate void KeyEventHandler(object? sender, KeyEventArgs e); の第2引数にpublic class public class KeyEventArgs : EventArgs というというイベントデータを渡す
+            // 理由：イベント名が"Click"になっていたため、Clickイベントのデリゲートである public delegate void EventHandler(object? sender, EventArgs e); の第2引数に
+            // 　　　FromEventPattern<TEventArgs> で型指定した <KeyEventArgs> が代入できなかった
 
             Observable.FromEventPattern<EventArgs>(ui表示, "Click").Select(_ => Unit.Default) //OK
-                      .Merge(Observable.FromEventPattern<KeyEventArgs>(this, "KeyDown").Where(e => e.EventArgs.KeyCode == Keys.F5).Select(_ => Unit.Default)) //NG
+                      .Merge(Observable.FromEventPattern<KeyEventArgs>(this, "KeyDown").Where(e => e.EventArgs.KeyCode == Keys.F5).Select(_ => Unit.Default)) // MainFormのKeyPreviewをtrueにする
                       .Throttle(new TimeSpan(100))
                       .ObserveOn(new WindowsFormsSynchronizationContext())
                       .Subscribe(_ =>
