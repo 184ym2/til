@@ -10,6 +10,9 @@ namespace CsharpRxSample
     {
         public void Observable_Only2()
         {
+
+
+
             Console.WriteLine("\r\n---Observer(観測者)は自動生成し、observable(観測対象)を手動で生成します：2---\r\n");
 
             // ★観測者：★わざわざ Observer.Create を使用してObserver(観測者)を作るのは面倒

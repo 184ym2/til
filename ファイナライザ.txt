@@ -1,0 +1,209 @@
+Allows an object to try to free resources and perform other cleanup operations before it is reclaimed by garbage collection.
+
+The following example verifies that the Finalize method is called when an object that overrides Finalize is destroyed. Note that, in a production application, the Finalize method would be overridden to release unmanaged resources held by the object. Also note that the C# example provides a destructor instead of overriding the Finalize method.
+For an additional example that overrides the Finalize method, see the GC.SuppressFinalize method.
+
+Remarks
+The Finalize method is used to perform cleanup operations on unmanaged resources held by the current object before the object is destroyed. The method is protected and therefore is accessible only through this class or through a derived class.
+
+In this section:
+
+How finalization works
+
+Notes for implementers
+
+The SafeHandle alternative
+
+How finalization works
+The Object class provides no implementation for the Finalize method, and the garbage collector does not mark types derived from Object for finalization unless they override the Finalize method.
+
+If a type does override the Finalize method, the garbage collector adds an entry for each instance of the type to an internal structure called the finalization queue. The finalization queue contains entries for all the objects in the managed heap whose finalization code must run before the garbage collector can reclaim their memory. The garbage collector then calls the Finalize method automatically under the following conditions:
+
+After the garbage collector has discovered that an object is inaccessible, unless the object has been exempted from finalization by a call to the GC.SuppressFinalize method.
+
+On .NET Framework only, during shutdown of an application domain, unless the object is exempt from finalization. During shutdown, even objects that are still accessible are finalized.
+
+Finalize is automatically called only once on a given instance, unless the object is re-registered by using a mechanism such as GC.ReRegisterForFinalize and the GC.SuppressFinalize method has not been subsequently called.
+
+Finalize operations have the following limitations:
+
+The exact time when the finalizer executes is undefined. To ensure deterministic release of resources for instances of your class, implement a Close method or provide a IDisposable.Dispose implementation.
+
+The finalizers of two objects are not guaranteed to run in any specific order, even if one object refers to the other. That is, if Object A has a reference to Object B and both have finalizers, Object B might have already been finalized when the finalizer of Object A starts.
+
+The thread on which the finalizer runs is unspecified.
+
+The Finalize method might not run to completion or might not run at all under the following exceptional circumstances:
+
+If another finalizer blocks indefinitely (goes into an infinite loop, tries to obtain a lock it can never obtain, and so on). Because the runtime tries to run finalizers to completion, other finalizers might not be called if a finalizer blocks indefinitely.
+
+If the process terminates without giving the runtime a chance to clean up. In this case, the runtime's first notification of process termination is a DLL_PROCESS_DETACH notification.
+
+The runtime continues to finalize objects during shutdown only while the number of finalizable objects continues to decrease.
+
+If Finalize or an override of Finalize throws an exception, and the runtime is not hosted by an application that overrides the default policy, the runtime terminates the process and no active try/finally blocks or finalizers are executed. This behavior ensures process integrity if the finalizer cannot free or destroy resources.
+
+****
+Overriding the Finalize method
+You should override Finalize for a class that uses unmanaged resources, such as file handles or database connections that must be released when the managed object that uses them is discarded during garbage collection. You shouldn't implement a Finalize method for managed objects because the garbage collector releases managed resources automatically.
+
+Important
+
+If a SafeHandle object is available that wraps your unmanaged resource, the recommended alternative is to implement the dispose pattern with a safe handle and not override Finalize. For more information, see The SafeHandle alternative section.
+
+The Object.Finalize method does nothing by default, but you should override Finalize only if necessary, and only to release unmanaged resources. Reclaiming memory tends to take much longer if a finalization operation runs, because it requires at least two garbage collections. In addition, you should override the Finalize method for reference types only. The common language runtime only finalizes reference types. It ignores finalizers on value types.
+
+The scope of the Object.Finalize method is protected. You should maintain this limited scope when you override the method in your class. By keeping a Finalize method protected, you prevent users of your application from calling an object's Finalize method directly.
+
+Every implementation of Finalize in a derived type must call its base type's implementation of Finalize. This is the only case in which application code is allowed to call Finalize. An object's Finalize method shouldn't call a method on any objects other than that of its base class. This is because the other objects being called could be collected at the same time as the calling object, such as in the case of a common language runtime shutdown.
+
+ Note
+
+The C# compiler does not allow you to override the Finalize method. Instead, you provide a finalizer by implementing a destructor for your class. A C# destructor automatically calls the destructor of its base class.
+
+Visual C++ also provides its own syntax for implementing the Finalize method. For more information, see the "Destructors and finalizers" section of How to: Define and Consume Classes and Structs (C++/CLI).
+
+Because garbage collection is non-deterministic, you do not know precisely when the garbage collector performs finalization. To release resources immediately, you can also choose to implement the dispose pattern and the IDisposable interface. The IDisposable.Dispose implementation can be called by consumers of your class to free unmanaged resources, and you can use the Finalize method to free unmanaged resources in the event that the Dispose method is not called.
+
+Finalize can take almost any action, including resurrecting an object (that is, making the object accessible again) after it has been cleaned up during garbage collection. However, the object can only be resurrected once; Finalize cannot be called on resurrected objects during garbage collection.
+
+
+****
+
+The SafeHandle alternative
+Creating reliable finalizers is often difficult, because you cannot make assumptions about the state of your application, and because unhandled system exceptions such as OutOfMemoryException and StackOverflowException terminate the finalizer. Instead of implementing a finalizer for your class to release unmanaged resources, you can use an object that is derived from the System.Runtime.InteropServices.SafeHandle class to wrap your unmanaged resources, and then implement the dispose pattern without a finalizer. The .NET Framework provides the following classes in the Microsoft.Win32 namespace that are derived from System.Runtime.InteropServices.SafeHandle:
+
+SafeFileHandle is a wrapper class for a file handle.
+
+SafeMemoryMappedFileHandle is a wrapper class for memory-mapped file handles.
+
+SafeMemoryMappedViewHandle is a wrapper class for a pointer to a block of unmanaged memory.
+
+SafeNCryptKeyHandle, SafeNCryptProviderHandle, and SafeNCryptSecretHandle are wrapper classes for cryptographic handles.
+
+SafePipeHandle is a wrapper class for pipe handles.
+
+SafeRegistryHandle is a wrapper class for a handle to a registry key.
+
+SafeWaitHandle is a wrapper class for a wait handle.
+
+The following example uses the dispose pattern with safe handles instead of overriding the Finalize method. It defines a FileAssociation class that wraps registry information about the application that handles files with a particular file extension. The two registry handles returned as out parameters by Windows RegOpenKeyEx function calls are passed to the SafeRegistryHandle constructor. The type's protected Dispose method then calls the SafeRegistryHandle.Dispose method to free these two handles.
+
+
+ガベージコレクションによって回収される前に、オブジェクトがリソースを解放し、他のクリーンアップ操作を実行しようとすることを許可します。
+
+次の例では、Finalize をオーバーライドしたオブジェクトが破棄されたときに Finalize メソッドが呼び出されることを確認しています。
+本番環境のアプリケーションでは、Finalize メソッドをオーバーライドして、オブジェクトが保持する管理されていないリソースを解放することに注意してください。
+また、C# の例では、Finalize メソッドをオーバーライドする代わりにデストラクタを提供していることにも注意してください。
+Finalize メソッドをオーバーライドする追加の例については、GC.SuppressFinalize メソッドを参照してください。
+
+備考
+Finalize メソッドは、オブジェクトが破棄される前に、現在のオブジェクトが保持する管理されていないリソースのクリーンアップ操作を実行するために使用されます。
+このメソッドは保護されているため、このクラスまたは派生クラスからのみアクセス可能です。
+
+Finalize の仕組み
+Object クラスは Finalize メソッドの実装を提供しておらず、
+ガベージコレクタは Finalize メソッドをオーバーライドしない限り、Object から派生した型を確定処理のためにマークしません。
+
+型が Finalize メソッドをオーバーライドした場合、ガベージコレクタはその型の各インスタンスのエントリを finalization キューと呼ばれる内部構造に追加します。
+finalization キューには、管理されているヒープ内のすべてのオブジェクトのエントリが含まれており、ガベージコレクタがメモリを回収する前に finalization コードを実行しなければなりません。
+ガベージコレクタは、以下の条件で自動的に Finalize メソッドを呼び出します。
+
+ガベージコレクタがオブジェクトにアクセスできないことを発見した後、
+オブジェクトが GC.SuppressFinalize メソッドへの呼び出しによって最終化から除外されていない限り、以下の条件の下で自動的に Finalize メソッドを呼び出します。
+
+オブジェクトが最終化から除外されていない限り、.NET Framework のみで、アプリケーションドメインの シャットダウン中に、オブジェクトが最終化から除外されている場合を除きます。
+シャットダウン中は、まだアクセス可能なオブジェクトであっても最終化されます。
+
+オブジェクトが GC.ReRegisterForFinalize のようなメカニズムを使用して再登録され、GC.SuppressFinalize メソッドがその後呼び出されていない限り、 
+Finalize は、与えられたインスタンス上で 1 回だけ自動的に呼び出されます。
+
+Finalize 操作には、以下の制限があります。
+ファイナライザが実行される正確な時間は定義されていません。
+クラスのインスタンスのリソースを確定的に解放するには、Close メソッドを実装するか、IDisposable.Dispose の実装を提供してください。
+
+2 つのオブジェクトのファイナライザは、一方のオブジェクトが他方のオブジェクトを参照している場合でも、特定の順序で実行されることは保証されていません。
+つまり、オブジェクト A がオブジェクト B への参照を持ち、両方にファイナライザがある場合、
+オブジェクト A のファイナライザが起動したときには、オブジェクト B はすでにファイナライズされている可能性があります。
+
+ファイナライザが実行されるスレッドは不特定です。
+以下の例外的な状況下では、Finalize メソッドが完了まで実行されない場合や、全く実行されない場合があります。
+
+別のファイナライザが無限にブロックしている場合（無限ループに入る、絶対に取得できないロックを取得しようとするなど）。
+ランタイムはファイナライザを完了まで実行しようとするので、ファイナライザが無限にブロックした場合、他のファイナライザは呼ばれないかもしれません。
+
+ランタイムにクリーンアップする機会を与えずにプロセスが終了した場合。この場合、ランタイムがプロセス終了を最初に通知するのはDLL_PROCESS_DETACH通知である。
+
+ランタイムは、確定可能なオブジェクトの数が減少し続けている間のみ、シャットダウン中にオブジェクトの確定処理を継続します。
+
+FinalizeまたはFinalizeのオーバーライドが例外を投げ、ランタイムがデフォルトポリシーをオーバーライドするアプリケーションによってホストされていない場合、ランタイムはプロセスを終了し、アクティブなtry/finallyブロックまたはfinalizerは実行されません。
+この動作は、ファイナライザがリソースを解放したり破壊したりすることができない場合に、プロセスの完全性を保証します。
+
+
+****
+
+
+Finalizeメソッドをオーバーライドする
+ファイルハンドルやデータベース接続など、管理されていないリソースを使用するクラスでは、
+それらを使用する管理オブジェクトがガベージコレクション中に破棄されたときに解放される必要があるため、Finalize をオーバーライドする必要があります。
+ガベージコレクタは管理されたリソースを自動的に解放するので、管理されたオブジェクトに対して Finalize メソッドを実装すべきではありません。
+
+重要なこと
+
+管理されていないリソースをラップする SafeHandle オブジェクトが利用可能な場合、推奨される代替手段は、安全なハンドルを使用して廃棄パターンを実装し、Finalize をオーバーライドしないことです。詳細については、「SafeHandle の代替方法」を参照してください。
+
+Object.Finalize メソッドはデフォルトでは何もしませんが、Finalize をオーバーライドするのは必要な場合のみで、管理されていないリソースを解放する場合のみにしてください。
+確定処理が実行された場合、メモリの再利用に時間がかかる傾向があります。
+さらに、参照型に対してのみ Finalize メソッドをオーバーライドする必要があります。共通言語ランタイムは参照型のみを最終化します。値型のファイナライザは無視されます。
+
+Object.Finalize メソッドのスコープは保護されています。
+クラスでメソッドをオーバーライドする際には、この限られたスコープを維持する必要があります。
+Finalizeメソッドを保護することで、アプリケーションのユーザーがオブジェクトのFinalizeメソッドを直接呼び出すことを防ぐことができます。
+
+派生型のFinalizeの実装はすべて、そのベース型のFinalizeの実装を呼び出す必要があります。これは、アプリケーションコードがFinalizeを呼び出すことが許される唯一のケースです。
+オブジェクトの Finalize メソッドは、その基底クラス以外のオブジェクトのメソッドを呼び出してはいけません。
+これは、共通言語のランタイム・シャットダウンのように、呼び出される他のオブジェクトが呼び出したオブジェクトと同時に収集されてしまう可能性があるからです。
+
+ 注意事項
+
+C#コンパイラでは、Finalizeメソッドをオーバーライドすることはできません。
+その代わりに、クラスのデストラクタを実装することでファイナライザを提供します。C# のデストラクタは、その基底クラスのデストラクタを自動的に呼び出します。
+
+Visual C++ では、Finalize メソッドを実装するための独自の構文も用意されています。
+詳細は、「How to」の「デストラクタとファイナライザ」のセクションを参照してください。クラスと構造体の定義と消費（C++/CLI）」の「デストラクタとファイナライザ」のセクションを参照してください。
+
+ガベージコレクションは非決定論的であるため、ガベージコレクタがいつ最終化を実行するかは正確にはわかりません。
+リソースをすぐに解放するには、dispose パターンと IDisposable インターフェイスの実装を選択することもできます。
+IDisposable.Dispose実装は、管理されていないリソースを解放するためにあなたのクラスの消費者によって呼び出され、Disposeメソッドが呼び出されなかった場合に管理されていないリソースを解放するためにFinalizeメソッドを使用することができます。
+
+Finalize は、ガベージコレクション中にクリーンアップされた後にオブジェクトを復活させる（つまり、オブジェクトに再びアクセスできるようにする）など、ほとんどすべてのアクションを取ることができます。ただし、オブジェクトの復活は一度しかできません。
+
+****
+
+
+SafeHandleの代替
+なぜなら、アプリケーションの状態を仮定することができないこと、OutOfMemoryException や StackOverflowException などの処理されていないシステム例外がファイナライザを終了させることがあるからです。
+管理されていないリソースを解放するクラスにファイナライザを実装する代わりに、System.Runtime.InteropServices.SafeHandle クラスから派生したオブジェクトを使用して、管理されていないリソースをラップし、ファイナライザを使用せずに破棄パターンを実装することができます。
+.NET Framework は、System.Runtime.InteropServices.SafeHandle から派生した Microsoft.Win32 名前空間の以下のクラスを提供しています。
+
+SafeFileHandle: SafeFileHandle は、ファイル・ハンドルのラッパ・クラスです。
+
+SafeMemoryMappedFileHandle は、メモリ・マップされたファイル・ハンドルのラッパークラスです。
+
+SafeMemoryMappedViewHandle は、管理されていないメモリのブロックへのポインタのラッパークラスです。
+
+SafeNCryptKeyHandle、SafeNCryptProviderHandle、および SafeNCryptSecretHandle は、暗号化ハンドルのラッパークラスです。
+
+SafePipeHandle は、パイプ・ハンドルのラッパークラスです。
+
+SafeRegistryHandle は、レジストリ・キーへのハンドルのラッパークラスです。
+
+SafeWaitHandle は、待機ハンドルのラッパークラスです。
+
+次の例では、Finalize メソッドをオーバーライドする代わりに、安全なハンドルを使用した廃棄パターンを使用しています。
+これは、特定のファイル拡張子を持つファイルを扱うアプリケーションに関するレジストリ情報をラップする FileAssociation クラスを定義しています。
+Windows RegOpenKeyEx 関数呼び出しで out パラメータとして返される 2 つのレジストリハンドルは、SafeRegistryHandle コンストラクタに渡されます。
+この型の protected Dispose メソッドは、SafeRegistryHandle.Dispose メソッドを呼び出してこれら 2 つのハンドルを解放します。
+
+
+
