@@ -5,7 +5,9 @@ using System.Text;
 
 namespace LINQサンプル.cs
 {
-    // ソート関連のLINQ
+    /// <summary>
+    /// ソート関連のLINQ
+    /// </summary>
     static class Sort
     {
 

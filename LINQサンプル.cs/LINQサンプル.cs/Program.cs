@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LINQサンプル.cs.LINQ;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,26 +7,26 @@ namespace LINQサンプル.cs
 {
     internal class Program
     {
-       
-       
         private static void Main(string[] args)
         {
-            //Aggregate01(); // シーケンス（集合）に集計関数を適用します
-            //Aggregate02(); // シーケンス（集合）に集計関数を適用します 指定されたシード値が最初の集計値として使用されます
-            //Aggregate03(); // シーケンス（集合）に集計関数を適用します(複数項目集計サンプル)
+            var ag = new Aggregation();
+
+            ag.Aggregate01(); // シーケンス（集合）に集計関数を適用します
+            ag.Aggregate02(); // シーケンス（集合）に集計関数を適用します 指定されたシード値が最初の集計値として使用されます
+            ag.Aggregate03(); // シーケンス（集合）に集計関数を適用します（複数項目集計サンプル）
 
             Evaluation.All01(); // シーケンス（集合）のすべての要素が条件を満たしているかどうかを判断します
             Evaluation.Any01(); // シーケンス（集合）に要素が含まれているかどうかを判断します
             Evaluation.Any02(); // シーケンス（集合）の任意の要素が条件を満たしているかどうかを判断します
 
-            //Average(); // シーケンス（集合）の平均値を計算します
+            ag.Average(); // シーケンス（集合）の平均値を計算します
 
             Projection.Cast01(); // 指定した型にキャストします
             Projection.Concat01(); // 2 つのシーケンス（集合）を連結します
             Projection.Contains01(); // 指定した要素がシーケンス（集合）に含まれているかどうかを判断します
 
-            //Count01(); // シーケンス（集合）内の要素数を返します
-            //Count02(); // 条件を満たす、指定されたシーケンス（集合）内の要素の数を表す数値を返します
+            ag.Count01(); // シーケンス（集合）内の要素数を返します
+            ag.Count02(); // 条件を満たす、指定されたシーケンス（集合）内の要素の数を表す数値を返します
 
             Projection.DefaultIfEmpty01(); // 指定されたシーケンス（集合）の要素を返します。シーケンス（集合）が空の場合は指定した値を返します
             Projection.DefaultIfEmpty02(); // 指定されたシーケンス（集合）の要素を返します。シーケンス（集合）が空の場合は型の既定値を返します
@@ -42,10 +43,10 @@ namespace LINQサンプル.cs
             Projection.LongCount01(); // シーケンス（集合）内の要素の合計数を表す Int64 を返します
             Projection.LongCount02(); // シーケンス（集合）内で条件を満たす要素の数を表す Int64 を返します
 
-            //Max01(); // シーケンス（集合）の最大値を返します
-            //Max02(); // シーケンス（集合）の各要素に対して変換関数を呼び出し、最大値を返します
-            //Min01(); // シーケンス（集合）の最小値を返します
-            //Min02(); // シーケンス（集合）の各要素に対して変換関数を呼び出し、結果の最小値を返します
+            ag.Max01(); // シーケンス（集合）の最大値を返します
+            ag.Max02(); // シーケンス（集合）の各要素に対して変換関数を呼び出し、最大値を返します
+            ag.Min01(); // シーケンス（集合）の最小値を返します
+            ag.Min02(); // シーケンス（集合）の各要素に対して変換関数を呼び出し、結果の最小値を返します
 
             Projection.OfType01(); // 指定された型に基づいて要素をフィルター処理します
 
@@ -65,9 +66,9 @@ namespace LINQサンプル.cs
             Projection.SingleOrDefault02(); // 指定された条件を満たすシーケンス（集合）の唯一の要素、またはそのような要素がない場合は既定値を返します。このメソッドは、複数の要素が条件を満たす場合に例外をスローします
             Projection.Skip01(); // シーケンス（集合）内の指定された数の要素をバイパスし、残りの要素を返します
             Projection.SkipWhile01(); // 指定された条件が満たされる限り、シーケンス（集合）の要素をバイパスした後、残りの要素を返します
-            
-            //Sum01(); // 値のシーケンス（集合）の合計を計算します
-            //Sum02(); // 各要素に対して変換関数を呼び出して取得する値の合計を計算します
+
+            ag.Sum01(); // 値のシーケンス（集合）の合計を計算します
+            ag.Sum02(); // 各要素に対して変換関数を呼び出して取得する値の合計を計算します
 
             Projection.Take01(); // シーケンス（集合）の先頭から、指定された数の連続する要素を返します
             Projection.TakeWhile01(); // 指定された条件が満たされる限り、シーケンス（集合）から要素を返します
@@ -78,341 +79,5 @@ namespace LINQサンプル.cs
             Projection.Zip01(); // 2 つのシーケンス（集合）の対応する要素に対して、1 つの指定した関数を適用し、結果として 1 つのシーケンス（集合）を生成します
         }
 
-
-       
-
-      
-        #region 集計
-
-        //public static void Sum02()
-        //{
-        //    //各要素に対して変換関数を呼び出して取得する値の合計を計算します。
-
-        //    /*サンプル:名称の長さの合計を求めます*/
-
-        //    { /*非LINQ*/
-
-        //        var result = 0;
-
-        //        foreach (var element in SrcNames)
-        //        {
-        //            result = result + element.Length;
-        //        }
-        //    }
-
-        //    { /*LINQ*/
-        //        var result = SrcNames.Sum(element => element.Length);
-        //    }
-        //}
-
-        //public static void Sum01()
-        //{
-        //    //値のシーケンス（集合）の合計を計算します。
-
-        //    { /*非LINQ*/
-        //        var result = 0;
-
-        //        foreach (var element in SrcNumbers)
-        //        {
-        //            result = result + element;
-        //        }
-        //    }
-
-        //    { /*LINQ*/
-
-        //        var result = SrcNumbers.Sum();
-        //    }
-        //}
-
-        //private static void Max01()
-        //{
-        //    //シーケンス（集合）の最大値を返します。
-        //    { /*非LINQ*/
-
-        //        var result = int.MinValue;
-
-        //        foreach (var element in SrcNumbers)
-        //        {
-        //            if (result < element)
-        //            {
-        //                result = element;
-        //            }
-        //        }
-        //    }
-
-        //    { /*LINQ*/
-
-        //        var result = SrcNumbers.Max();
-        //    }
-        //}
-
-        //private static void Max02()
-        //{
-        //    //シーケンス（集合）の各要素に対して変換関数を呼び出し、最大値を返します。
-
-        //    { /*非LINQ*/
-        //        var result = int.MinValue;
-
-        //        foreach (var element in SrcNames)
-        //        {
-        //            var length = element.Length;
-
-        //            if (result < length)
-        //            {
-        //                result = length;
-        //            }
-        //        }
-        //    }
-
-        //    { /*LINQ*/
-        //        var result = SrcNames.Max(element => element.Length);
-        //    }
-        //}
-
-        //private static void Min01()
-        //{
-        //    //シーケンス（集合）の最小値を返します。
-
-        //    { /*非LINQ*/
-
-        //        var result = int.MaxValue;
-
-        //        foreach (var element in SrcNumbers)
-        //        {
-        //            if (result < element)
-        //            {
-        //                result = element;
-        //            }
-        //        }
-        //    }
-
-        //    { /*LINQ*/
-
-        //        var result = SrcNumbers.Min();
-        //    }
-        //}
-
-        //private static void Min02()
-        //{
-        //    //シーケンス（集合）の各要素に対して変換関数を呼び出し、結果の最小値を返します。
-
-        //    { /*非LINQ*/
-
-        //        var result = int.MaxValue;
-
-        //        foreach (var element in SrcNames)
-        //        {
-        //            var length = element.Length;
-
-        //            if (length < result)
-        //            {
-        //                result = length;
-        //            }
-        //        }
-        //    }
-
-        //    { /*LINQ*/
-
-        //        var result = SrcNames.Min(element => element.Length);
-        //    }
-        //}
-
-        ///*平均値を求める*/
-        //public static void Average()
-        //{
-        //    /*全ての番号の平均値を取得する*/
-
-        //    { /*LINQ使わない*/
-
-        //        decimal result = 0;
-        //        decimal sum = 0;
-        //        decimal count = 0;
-
-        //        count = SrcNumbers.Count();
-
-        //        if (count > 0)
-        //        {
-        //            foreach (var element in SrcNumbers)
-        //            {
-        //                sum = sum + element;
-        //                result = sum / count;
-        //            }
-        //        }
-        //    }
-
-        //    { /*LINQ*/
-
-        //        var result = SrcNumbers.Average();
-        //    }
-        //}
-
-        ///*集約処理*/
-        //public static void Aggregate01()
-        //{
-        //    /*サンプル：全ての番号の累計を取得する*/
-
-        //    { /*LINQ使わない場合*/
-        //        var result = 0;
-
-        //        foreach (var element in SrcNumbers)
-        //        {
-        //            result = result + element;
-        //        }
-        //    }
-
-        //    { /*LINQで書いた場合*/
-
-        //        var result = SrcNumbers.Aggregate((summary, element) =>
-        //                                              {
-        //                                                  var work = summary + element;
-        //                                                  return work;
-        //                                              });
-
-        //        var result2 = SrcNumbers.Aggregate((summary, element) => summary + element);
-        //    }
-        //}
-
-        //public static void Aggregate02()
-        //{
-        //    /*サンプル 100に対して、全ての番号の累計を加算する*/
-
-        //    { /*LINQ使わない場合*/
-        //        var result = 100;
-
-        //        foreach (var element in SrcNumbers)
-        //        {
-        //            result = result + element;
-        //        }
-        //    }
-
-        //    { /*LINQの場合*/
-
-        //        var result = SrcNumbers.Aggregate(100, (summary, element) =>
-        //            {
-        //                var work = summary + element;
-        //                return work;
-        //            });
-
-        //        var result2 = SrcNumbers.Aggregate(100, (summary, element) => summary + element);
-        //    }
-        //}
-
-        //#region aggr3
-
-        //public static void Aggregate03()
-        //{
-        //    /*サンプル：全ての番号の、{件数と累計}を取得する*/
-
-        //    { /*LINQで書かない場合*/
-        //        var result = new Aggr3Result();
-
-        //        foreach (var element in SrcNumbers)
-        //        {
-        //            result.Count = result.Count + 1;
-        //            result.Sum = result.Sum + element;
-        //        }
-        //    }
-
-        //    { /*LINQで書いた場合*/
-
-        //        var result = SrcNumbers.Aggregate(new Aggr3Result(), (summary, element) =>
-        //                                                                 {
-        //                                                                     summary.Count = summary.Count + 1;
-        //                                                                     summary.Sum = summary.Sum + element;
-
-        //                                                                     return summary;
-        //                                                                 });
-        //    }
-
-        //    { /*LINQ その２(クラスを別定義しない)*/
-
-        //        var result = SrcNumbers.Aggregate(new
-        //        {
-        //            Count = 0
-        //                                              ,
-        //            Sum = 0
-        //                                              ,
-        //            multiple = 0
-        //        }, (summary, element) => new
-        //        {
-        //            Count = summary.Count + 1
-        //                                     ,
-        //            Sum = summary.Sum + element
-        //                                     ,
-        //            multiple = summary.Count * 2,
-        //        });
-
-        //    }
-        //}
-
-        //public class Aggr3Result
-        //{
-        //    public int Count;
-        //    public int Sum;
-        //}
-
-        //#endregion
-
-        //public static void Count01()
-        //{
-        //    /*要素の件数を返します。*/
-
-        //    var data = new List<int>()
-        //               {
-        //                   1
-        //                   , 2
-        //                   , 3
-        //                   , 4
-        //                   , 5
-        //               };
-
-        //    var enumrable = (IEnumerable<int>)data;
-
-        //    { /*非LINQ*/
-
-        //        var result = enumrable.ToList().Count;
-        //    }
-
-        //    { /*LINQ版*/
-
-        //        /*IEnumrableインタフェースに対して件数が取得可能*/
-
-        //        var result = enumrable.Count();
-        //    }
-        //}
-
-        //public static void Count02()
-        //{
-        //    /*条件を満たす、指定されたシーケンス（集合）内の要素の数を表す数値を返します。*/
-
-        //    /*サンプル：偶数の番号の数を取得する*/
-
-        //    { /*非LINQ*/
-
-        //        var result = 0;
-
-        //        foreach (var element in SrcNumbers)
-        //        {
-        //            if (element % 2 == 0)
-        //            {
-        //                result = result + 1;
-        //            }
-        //        }
-        //    }
-
-        //    {/*LINQ*/
-        //        var result = SrcNumbers.Count(element =>
-        //            {
-        //                return element % 2 == 0;
-        //            });
-        //    }
-
-        //    { /*LINQ*/
-
-        //        var result = SrcNumbers.Count(element => element % 2 == 0);
-        //    }
-        //}
-
-        #endregion
     }
 }
